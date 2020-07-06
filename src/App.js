@@ -35,7 +35,23 @@ function App() {
     }
     consultarAPI();
   }, [busqueda])
-    
+  
+  // definir la pagina anterior
+  const paginaAnterior = () => {
+    const nuevaPaginaActual = paginaactual - 1;
+    // Evitar valores negativos en el paginador
+    if(nuevaPaginaActual === 0) return;
+    guardarPaginaActual(nuevaPaginaActual);
+  }
+  
+  // definir la pagina siguiente
+  const paginaSiguiente = () => {
+    const nuevaPaginaActual = paginaactual + 1;
+    // Evitar exceso en el paginador
+    if(nuevaPaginaActual > totalpaginas) return;
+    guardarPaginaActual(nuevaPaginaActual);
+  }
+  
 
   return (
     <div className="container">
@@ -49,6 +65,17 @@ function App() {
         <ListadoImagenes 
           imagenes={imagenes}
         />
+
+        <button
+          type="button"
+          className="bbtn btn-info mr-1"
+          onClick={paginaAnterior}
+        >&laquo; Anterior</button>
+        <button
+          type="button"
+          className="bbtn btn-info"
+          onClick={paginaSiguiente}
+        >Siguiente &raquo;</button>
       </div>
     </div>
   );
